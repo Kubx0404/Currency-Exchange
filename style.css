@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 60px 30px 60px;
+}
+input {
+  margin: 10px;
+  background-color: #454545;
+  color: white;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+form div {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  align-items: center;
+}
+select {
+  margin: 10px;
+  background-color: #454545;
+  color: white;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+main {
+  background-color: #303030;
+  color: white;
+  border-radius: 10px;
+}
+input[type="submit"] {
+  background-color: #606060;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 25px;
+}
+body {
+  background-color: #454545;
+}
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/* delete Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
