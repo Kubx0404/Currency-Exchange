@@ -1,3 +1,29 @@
+let currencies = {};
+currencies["PLN"] = {
+  currency: "złoty",
+  mid: 1,
+};
+
+fetch(`http://api.nbp.pl/api/exchangerates/tables/a/?format=json`)
+  .then((response) => response.json())
+  .then(function (data) {
+    console.log(data);
+    data[0].rates.forEach((element) => {
+      currencies[element.code] = {
+        currency: element.currency,
+        mid: element.mid,
+      };
+      console.log(currencies[element.code]);
+
+      document.querySelectorAll("select").forEach((select) => {
+        const option = document.createElement("option");
+        option.setAttribute("value", element.code);
+        option.innerText = element.currency;
+        select.append(option);
+      });
+    });
+  });
+
 document.querySelector("#submit").addEventListener("click", (event) => {
   event.preventDefault();
   let from_currency = document.querySelector("#from_currency").value;
@@ -23,21 +49,17 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     text.innerHTML = "Wprowadź ilość";
     document.querySelector("form").appendChild(text);
   } else {
-    fetch(`https://api.exchangerate-api.com/v4/latest/${from_currency}`)
-      .then((response) => response.json())
-      .then(function (data) {
-        console.log(data);
-        let conversionFactor = data["rates"][to_currency];
-        let result = amount * conversionFactor;
-        if (document.querySelector("form p"))
-          document.querySelector("form p").remove();
-        let text = document.createElement("p");
+    let preConversionFactor =
+      from_currency == "PLN" ? 1 : currencies[from_currency].mid;
+    let conversionFactor = currencies[to_currency].mid;
+    let result = (amount * preConversionFactor) / conversionFactor;
+    if (document.querySelector("form p"))
+      document.querySelector("form p").remove();
+    let text = document.createElement("p");
 
-        text.innerHTML = `${amount} ${from_currency} to ${result.toFixed(
-          2
-        )} ${to_currency}`;
-        document.querySelector("form").appendChild(text);
-      });
+    text.innerHTML = `${amount} ${from_currency} to ${result.toFixed(
+      2
+    )} ${to_currency}`;
+    document.querySelector("form").appendChild(text);
   }
-  console.log(from_currency, to_currency);
 });
