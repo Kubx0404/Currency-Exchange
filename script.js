@@ -13,7 +13,7 @@ fetch(`http://api.nbp.pl/api/exchangerates/tables/a/?format=json`)
         currency: element.currency,
         mid: element.mid,
       };
-      console.log(currencies[element.code]);
+      // console.log(currencies[element.code]);
 
       document.querySelectorAll("select").forEach((select) => {
         const option = document.createElement("option");
