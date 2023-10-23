@@ -22,6 +22,7 @@ input {
   border: 0;
   padding: 10px;
   border-radius: 5px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 form div {
   display: flex;
@@ -38,11 +39,13 @@ select {
   border: 0;
   padding: 10px;
   border-radius: 5px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 main {
   background-color: #303030;
   color: white;
   border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
 }
 input[type="submit"] {
   background-color: #606060;
@@ -50,6 +53,7 @@ input[type="submit"] {
   padding: 10px;
   border-radius: 5px;
   margin-top: 25px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 input[type="submit"]:hover {
   background-color: #707070;
@@ -74,4 +78,20 @@ h1 {
   margin-left: 45px;
   margin-right: 45px;
   margin-bottom: 40px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+#text2 {
+  margin-bottom: 0;
+  margin-top: 0;
+  opacity: 0.4;
+}
+label {
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+p {
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+select {
+  width: 71.5%;
 }

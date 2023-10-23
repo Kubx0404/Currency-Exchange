@@ -13,7 +13,6 @@ fetch(`http://api.nbp.pl/api/exchangerates/tables/a/?format=json`)
         currency: element.currency,
         mid: element.mid,
       };
-      // console.log(currencies[element.code]);
 
       document.querySelectorAll("select").forEach((select) => {
         const option = document.createElement("option");
@@ -36,7 +35,9 @@ document.querySelector("#submit").addEventListener("click", (event) => {
     to_currency == ""
   ) {
     if (document.querySelector("form p")) {
-      document.querySelector("form p").remove();
+      while (document.querySelector("form p")) {
+        document.querySelector("form p").remove();
+      }
     }
     let text = document.createElement("p");
     text.innerHTML = "Wprowadź dwie różne waluty";
@@ -53,13 +54,31 @@ document.querySelector("#submit").addEventListener("click", (event) => {
       from_currency == "PLN" ? 1 : currencies[from_currency].mid;
     let conversionFactor = currencies[to_currency].mid;
     let result = (amount * preConversionFactor) / conversionFactor;
+
     if (document.querySelector("form p"))
-      document.querySelector("form p").remove();
+      while (document.querySelector("form p")) {
+        document.querySelector("form p").remove();
+      }
     let text = document.createElement("p");
 
     text.innerHTML = `${amount} ${from_currency} to ${result.toFixed(
       2
     )} ${to_currency}`;
+    let today = new Date();
+    let text2 = document.createElement("p");
+    text2.setAttribute("id", "text2");
+
+    text2.innerHTML = `Stan na dzień ${
+      today.getDate() < 10 ? "0" : ""
+    }${today.getDate()}.${
+      today.getMonth() < 10 ? "0" : ""
+    }${today.getMonth()}.${today.getFullYear()} 
+    ${today.getHours() < 10 ? "0" : ""}${today.getHours()}:${
+      today.getMinutes() < 10 ? "0" : ""
+    }${today.getMinutes()}
+    `;
+
     document.querySelector("form").appendChild(text);
+    document.querySelector("form").appendChild(text2);
   }
 });
