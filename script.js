@@ -81,7 +81,7 @@ const showData = () => {
       let preConversionFactor =
         from_currency == "PLN" ? 1 : currencies[from_currency].mid;
       let conversionFactor = currencies[to_currency].mid;
-      let result = (amount * preConversionFactor) / conversionFactor;
+      let result = (amount.toFixed() * preConversionFactor) / conversionFactor;
 
       if (document.querySelector("form p"))
         while (document.querySelector("form p")) {
