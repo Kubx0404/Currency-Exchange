@@ -1,4 +1,4 @@
-let currencies = {};
+const currencies = {};
 currencies["PLN"] = {
   currency: "złoty",
   mid: 1,
@@ -7,7 +7,6 @@ const fetchData = async () => {
   fetch(`http://api.nbp.pl/api/exchangerates/tables/a/?format=json`)
     .then((response) => response.json())
     .then(function (data) {
-      console.log(data);
       data[0].rates.forEach((element) => {
         currencies[element.code] = {
           currency: element.currency,
@@ -37,9 +36,12 @@ const fetchData = async () => {
     });
 };
 
+let time_to_show = false;
+
 const showData = () => {
   document.querySelector("#submit").addEventListener("click", (event) => {
     event.preventDefault();
+    time_to_show = false;
     let from_currency = document.querySelector("#from_currency").value;
     let to_currency = document.querySelector("#to_currency").value;
     let amount = parseFloat(document.querySelector("#amount").value);
@@ -90,27 +92,31 @@ const showData = () => {
       text.innerHTML = `${amount} ${from_currency} to ${result.toFixed(
         2
       )} ${to_currency}`;
-      let today = new Date();
-      let text2 = document.createElement("p");
-      text2.setAttribute("id", "text2");
-
-      text2.innerHTML = `Stan na dzień ${
-        today.getDate() < 10 ? "0" : ""
-      }${today.getDate()}.${
-        today.getMonth() < 10 ? "0" : ""
-      }${today.getMonth()}.${today.getFullYear()} 
-      ${today.getHours() < 10 ? "0" : ""}${today.getHours()}:${
-        today.getMinutes() < 10 ? "0" : ""
-      }${today.getMinutes()}
-      `;
 
       document.querySelector("form").appendChild(text);
-      document.querySelector("form").appendChild(text2);
+      time_to_show = true;
+      show_time();
     }
   });
 };
 const main = async () => {
-  const data = await fetchData();
+  await fetchData();
   showData();
 };
 main();
+
+let show_time = () => {
+  if (time_to_show) {
+    let today = new Date();
+    let text2 = document.createElement("p");
+    text2.setAttribute("id", "text2");
+    text2.innerHTML = today.toLocaleString("pl-PL");
+    if (document.querySelector("form #text2")) {
+      document.querySelector("#text2").replaceWith(text2);
+    } else {
+      document.querySelector("form").appendChild(text2);
+    }
+  }
+};
+
+setInterval(show_time, 1000);
